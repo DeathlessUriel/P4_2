@@ -1,0 +1,56 @@
+﻿<Window x:Class="TransportApp.Dialogs.PojazdDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Pojazd"
+        Height="600"
+        Width="450"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid Margin="20">
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+            <StackPanel>
+
+                <TextBlock Text="Numer rejestracyjny"/>
+                <TextBox Text="{Binding Pojazd.NumerRejestracyjny}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="Rok produkcji"/>
+                <TextBox Text="{Binding Pojazd.RokProdukcji}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="Ładowność"/>
+                <TextBox Text="{Binding Pojazd.DopuszczalnaLadownosc}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="Pojemność LDM"/>
+                <TextBox Text="{Binding Pojazd.PojemnoscLdm}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="Data przeglądu"/>
+                <DatePicker SelectedDate="{Binding DataPrzegladu}"
+                            Margin="0 0 0 10"/>
+
+                <TextBlock Text="Data ubezpieczenia"/>
+                <DatePicker SelectedDate="{Binding DataUbezpieczenia}"
+                            Margin="0 0 0 20"/>
+
+                <TextBlock Text="Model pojazdu"/>
+
+                <ComboBox ItemsSource="{Binding Modele}"
+                          SelectedItem="{Binding SelectedModel}"
+                          DisplayMemberPath="Model"
+                          Margin="0 0 0 20"/>
+
+                <Button Content="Zapisz"
+                        Height="45"
+                        Command="{Binding SaveCommand}"/>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+    </Grid>
+</Window>

@@ -32,6 +32,8 @@ public partial class App : Application
         services.AddScoped<KierowcaService>();
         services.AddScoped<ZlecenieService>();
         services.AddScoped<PrzejazdService>();
+        services.AddScoped<KosztService>();
+        services.AddScoped<DashboardViewModel>();
 
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<MainWindow>();

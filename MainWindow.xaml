@@ -16,7 +16,8 @@
                     Command="{Binding ShowPojazdyCommand}"
                     Width="120"
                     Margin="5"/>
-
+           
+            
             <Button Content="Kierowcy"
                     Command="{Binding ShowKierowcyCommand}"
                     Width="120"
@@ -26,6 +27,23 @@
                     Command="{Binding ShowZleceniaCommand}"
                     Width="120"
                     Margin="5"/>
+
+            <Button Content="Przejazdy"
+                 Command="{Binding ShowPrzejazdyCommand}"
+                 Width="120"
+                 Margin="5"/>   
+
+            <Button Content="Koszty"
+                Command="{Binding ShowKosztyCommand}"
+                Width="120"
+                Margin="5"/>
+
+
+            <Button Content="Dashboard"
+                 Command="{Binding ShowDashboardCommand}"
+                 Width="120"
+                 Margin="5"/>       
+
         </StackPanel>
 
         <ContentControl Grid.Row="1"

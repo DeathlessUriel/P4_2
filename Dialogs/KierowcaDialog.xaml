@@ -1,0 +1,46 @@
+﻿<Window x:Class="TransportApp.Dialogs.KierowcaDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kierowca"
+        Height="500"
+        Width="450"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid Margin="20">
+
+        <StackPanel>
+
+            <TextBlock Text="Imię"/>
+            <TextBox Text="{Binding Kierowca.Imie}"
+                     Margin="0 0 0 10"/>
+
+            <TextBlock Text="Nazwisko"/>
+            <TextBox Text="{Binding Kierowca.Nazwisko}"
+                     Margin="0 0 0 10"/>
+
+            <TextBlock Text="Numer prawa jazdy"/>
+            <TextBox Text="{Binding Kierowca.NumerPrawaJazdy}"
+                     Margin="0 0 0 10"/>
+
+            <TextBlock Text="Telefon służbowy"/>
+            <TextBox Text="{Binding Kierowca.TelefonSluzbowy}"
+                     Margin="0 0 0 10"/>
+
+            <TextBlock Text="Numer karty kierowcy"/>
+            <TextBox Text="{Binding Kierowca.NumerKartyKierowcy}"
+                     Margin="0 0 0 10"/>
+
+            <TextBlock Text="Data zatrudnienia"/>
+
+            <DatePicker SelectedDate="{Binding DataZatrudnienia}"
+                        Margin="0 0 0 20"/>
+
+            <Button Content="Zapisz"
+                    Height="45"
+                    Command="{Binding SaveCommand}"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

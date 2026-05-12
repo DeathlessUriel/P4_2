@@ -1,0 +1,107 @@
+﻿<Window x:Class="TransportApp.Dialogs.ZlecenieDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Zlecenie"
+        Height="750"
+        Width="550"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid Margin="20">
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+            <StackPanel>
+
+                <TextBlock Text="Numer zlecenia"/>
+                <TextBox Text="{Binding Zlecenie.NumerZlecenia}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="NIP klienta"/>
+                <TextBox Text="{Binding Zlecenie.NipKlienta}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="Opis transportu"/>
+                <TextBox Text="{Binding Zlecenie.OpisTransportu}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="Waga"/>
+                <TextBox Text="{Binding Zlecenie.Waga}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="Kwota"/>
+                <TextBox Text="{Binding Zlecenie.Kwota}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="LDM"/>
+                <TextBox Text="{Binding Zlecenie.Ldm}"
+                         Margin="0 0 0 10"/>
+
+                <TextBlock Text="Data przyjęcia"/>
+                <DatePicker SelectedDate="{Binding DataPrzyjecia}"
+                            Margin="0 0 0 10"/>
+
+                <TextBlock Text="Termin załadunku"/>
+                <DatePicker SelectedDate="{Binding TerminZaladunku}"
+                            Margin="0 0 0 10"/>
+
+                <TextBlock Text="Termin rozładunku"/>
+                <DatePicker SelectedDate="{Binding TerminRozladunku}"
+                            Margin="0 0 0 10"/>
+
+                <TextBlock Text="Waluta / kurs"/>
+
+                <ComboBox ItemsSource="{Binding Kursy}"
+          SelectedItem="{Binding SelectedKurs}"
+          Margin="0 0 0 10">
+
+                    <ComboBox.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <TextBlock>
+
+                <Run Text="{Binding IdValutyNavigation.KodIso}"/>
+                <Run Text=" | "/>
+                <Run Text="{Binding WartoscKursu}"/>
+                <Run Text=" | "/>
+                <Run Text="{Binding Data}"/>
+
+                            </TextBlock>
+
+                        </DataTemplate>
+
+                    </ComboBox.ItemTemplate>
+
+                </ComboBox>
+
+                <TextBlock Text="Status"/>
+
+                <ComboBox ItemsSource="{Binding Statusy}"
+                          SelectedItem="{Binding SelectedStatus}"
+                          Margin="0 0 0 10"/>
+
+                <TextBlock Text="Adres załadunku"/>
+
+                <ComboBox ItemsSource="{Binding Adresy}"
+                          SelectedItem="{Binding SelectedAdresZaladunku}"
+                          DisplayMemberPath="Miasto"
+                          Margin="0 0 0 10"/>
+
+                <TextBlock Text="Adres rozładunku"/>
+
+                <ComboBox ItemsSource="{Binding Adresy}"
+                          SelectedItem="{Binding SelectedAdresRozladunku}"
+                          DisplayMemberPath="Miasto"
+                          Margin="0 0 0 20"/>
+
+                <Button Content="Zapisz"
+                        Height="45"
+                        Command="{Binding SaveCommand}"/>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+    </Grid>
+</Window>

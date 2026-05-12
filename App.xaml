@@ -28,6 +28,18 @@
                 <views:ZleceniaView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:PrzejazdyViewModel}">
+                <views:PrzejazdyView/>
+            </DataTemplate>
+
+           <DataTemplate DataType="{x:Type vm:KosztyViewModel}">
+                <views:KosztyView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:DashboardViewModel}">
+                <views:DashboardView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
