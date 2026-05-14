@@ -1,0 +1,64 @@
+﻿<Window x:Class="TransportApp.Dialogs.KosztDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Koszt"
+        Height="550"
+        Width="450"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid Margin="20">
+
+        <StackPanel>
+
+            <TextBlock Text="Rodzaj kosztu"/>
+            <TextBox Text="{Binding Koszt.RodzajKosztu}"
+                     Margin="0 0 0 10"/>
+
+            <TextBlock Text="Opis"/>
+            <TextBox Text="{Binding Koszt.OpisKosztu}"
+                     Margin="0 0 0 10"/>
+
+            <TextBlock Text="Wartość"/>
+            <TextBox Text="{Binding Koszt.WartoscKosztu}"
+                     Margin="0 0 0 10"/>
+
+            <TextBlock Text="Przejazd"/>
+
+            <ComboBox ItemsSource="{Binding Przejazdy}"
+                      SelectedItem="{Binding SelectedPrzejazd}"
+                      DisplayMemberPath="IdPrzejazd"
+                      Margin="0 0 0 10"/>
+
+            <TextBlock Text="Waluta / kurs"/>
+
+            <ComboBox ItemsSource="{Binding Kursy}"
+                      SelectedItem="{Binding SelectedKurs}"
+                      Margin="0 0 0 20">
+
+                <ComboBox.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <TextBlock>
+
+                            <Run Text="{Binding IdValutyNavigation.KodIso}"/>
+                            <Run Text=" | "/>
+                            <Run Text="{Binding WartoscKursu}"/>
+
+                        </TextBlock>
+
+                    </DataTemplate>
+
+                </ComboBox.ItemTemplate>
+
+            </ComboBox>
+
+            <Button Content="Zapisz"
+                    Height="45"
+                    Command="{Binding SaveCommand}"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>
