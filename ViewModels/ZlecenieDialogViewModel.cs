@@ -92,21 +92,27 @@ public partial class ZlecenieDialogViewModel
         }
     }
 
+    
+
+    private readonly IDbContextFactory<AppDbContext> _factory;
     public ZlecenieDialogViewModel(
-        Zlecenie zlecenie,
-        Window window)
+    IDbContextFactory<AppDbContext> factory,
+    Zlecenie zlecenie,
+     Window window
+     )
     {
+        _factory = factory;
+
         Zlecenie = zlecenie;
         _window = window;
 
         LoadData();
     }
-
     private async void LoadData()
     {
         try
         {
-            using var context = new AppDbContext();
+            using var context = await _factory.CreateDbContextAsync();
 
             var adresyDb =
                 await context.Adresy

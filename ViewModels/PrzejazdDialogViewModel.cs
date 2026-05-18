@@ -54,10 +54,17 @@ public partial class PrzejazdDialogViewModel
         set => Przejazd.DataZakonczenia = value;
     }
 
+  
+    
+    private readonly IDbContextFactory<AppDbContext> _factory;
     public PrzejazdDialogViewModel(
-        Przejazd przejazd,
-        Window window)
+    IDbContextFactory<AppDbContext> factory,
+    Przejazd przejazd,
+    Window window
+    )
     {
+        _factory = factory;
+
         Przejazd = przejazd;
         _window = window;
 
@@ -68,7 +75,7 @@ public partial class PrzejazdDialogViewModel
     {
         try
         {
-            using var context = new AppDbContext();
+            using var context = await _factory.CreateDbContextAsync();
 
             Kierowcy =
                 new ObservableCollection<Kierowca>(

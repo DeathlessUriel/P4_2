@@ -47,21 +47,26 @@ public partial class PojazdDialogViewModel : ObservableObject
         }
     }
 
+    
+    private readonly IDbContextFactory<AppDbContext> _factory;
     public PojazdDialogViewModel(
-        Pojazd pojazd,
-        Window window)
+    IDbContextFactory<AppDbContext> factory,
+     Pojazd pojazd,
+     Window window
+     )
     {
+        _factory = factory;
+
         Pojazd = pojazd;
         _window = window;
-
         LoadModels();
-    }
 
+    }
     private async void LoadModels()
     {
         try
         {
-            using var context = new AppDbContext();
+            using var context = await _factory.CreateDbContextAsync();
 
             var data = await context.ModelePojazdow
                 .ToListAsync();

@@ -22,14 +22,20 @@ public partial class DashboardViewModel
     [ObservableProperty]
     private decimal sumaPrzychodow;
 
-    public DashboardViewModel()
+    
+
+    private readonly IDbContextFactory<AppDbContext> _factory;
+    public DashboardViewModel(
+    IDbContextFactory<AppDbContext> factory)
     {
+        _factory = factory;
+
         _ = LoadData();
     }
-
     private async Task LoadData()
     {
-        using var context = new AppDbContext();
+      
+        using var context = await _factory.CreateDbContextAsync();
 
         LiczbaPojazdow =
             await context.Pojazd.CountAsync();

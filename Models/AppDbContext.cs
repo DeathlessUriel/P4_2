@@ -6,9 +6,7 @@ namespace TransportApp.Models;
 
 public partial class AppDbContext : DbContext
 {
-    public AppDbContext()
-    {
-    }
+    
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
@@ -39,8 +37,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Zlecenie> Zlecenie { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=.;Database=Transport;Trusted_Connection=True;TrustServerCertificate=True");
+   
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

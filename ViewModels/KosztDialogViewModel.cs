@@ -30,21 +30,25 @@ public partial class KosztDialogViewModel
     [ObservableProperty]
     private KursyWalut? selectedKurs;
 
-    public KosztDialogViewModel(
+   
+    private readonly IDbContextFactory<AppDbContext> _factory;
+    public KosztDialogViewModel(IDbContextFactory<AppDbContext> factory,
         Koszty koszt,
-        Window window)
+        Window window
+    )
     {
+        _factory = factory;
+
         Koszt = koszt;
         _window = window;
 
         LoadData();
     }
-
     private async void LoadData()
     {
         try
         {
-            using var context = new AppDbContext();
+            using var context = await _factory.CreateDbContextAsync();
 
             var przejazdyDb =
                 await context.Przejazd
