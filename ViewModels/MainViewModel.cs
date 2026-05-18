@@ -61,8 +61,9 @@ public partial class MainViewModel : ObservableObject
         CurrentView = KosztyVM;
     }
     [RelayCommand]
-        private void ShowDashboard()
+    private async Task ShowDashboard()
     {
+        await DashboardVM.LoadData();
         CurrentView = DashboardVM;
     }
 

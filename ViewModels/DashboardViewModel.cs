@@ -32,7 +32,7 @@ public partial class DashboardViewModel
 
         _ = LoadData();
     }
-    private async Task LoadData()
+    public async Task LoadData()
     {
       
         using var context = await _factory.CreateDbContextAsync();
