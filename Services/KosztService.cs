@@ -1,16 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TransportApp.Helpers;
 using TransportApp.Models;
+using TransportApp.Repositories;
 
 namespace TransportApp.Services;
 
 public class KosztService
 {
+    private readonly IRepository<Koszty> _repository;   
     private readonly IDbContextFactory<AppDbContext> _factory;
 
     public KosztService(
+        IRepository<Koszty> repository,
         IDbContextFactory<AppDbContext> factory)
     {
+        _repository = repository;
         _factory = factory;
     }
 
@@ -40,12 +44,10 @@ public class KosztService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
+            await _repository.AddAsync(koszt);
+            await _repository.SaveAsync();
 
-            context.Koszty.Add(koszt);
-
-            await context.SaveChangesAsync();
+           
 
             return true;
         }
@@ -61,12 +63,8 @@ public class KosztService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Koszty.Update(koszt);
-
-            await context.SaveChangesAsync();
+            await _repository.UpdateAsync(koszt);
+            await _repository.SaveAsync();
 
             return true;
         }
@@ -82,12 +80,8 @@ public class KosztService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Koszty.Remove(koszt);
-
-            await context.SaveChangesAsync();
+            await _repository.DeleteAsync(koszt);
+            await _repository.SaveAsync();
 
             return true;
         }

@@ -1,16 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TransportApp.Helpers;
 using TransportApp.Models;
-
+using TransportApp.Repositories;
 namespace TransportApp.Services;
 
 public class PrzejazdService
 {
+    private readonly IRepository<Przejazd> _repository;
     private readonly IDbContextFactory<AppDbContext> _factory;
 
     public PrzejazdService(
+        IRepository<Przejazd> repository,
         IDbContextFactory<AppDbContext> factory)
     {
+        _repository = repository;
         _factory = factory;
     }
 
@@ -41,12 +44,8 @@ public class PrzejazdService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Przejazd.Add(przejazd);
-
-            await context.SaveChangesAsync();
+            await _repository.AddAsync(przejazd);
+            await _repository.SaveAsync();
 
             return true;
         }
@@ -62,12 +61,8 @@ public class PrzejazdService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Przejazd.Update(przejazd);
-
-            await context.SaveChangesAsync();
+            await _repository.UpdateAsync(przejazd);
+            await _repository.SaveAsync();
 
             return true;
         }
@@ -83,12 +78,8 @@ public class PrzejazdService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Przejazd.Remove(przejazd);
-
-            await context.SaveChangesAsync();
+            await _repository.DeleteAsync(przejazd);
+            await _repository.SaveAsync();
 
             return true;
         }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using TransportApp.Models;
+using TransportApp.Repositories;
 using TransportApp.Services;
 using TransportApp.ViewModels;
 
@@ -29,11 +30,16 @@ public partial class App : Application
         });
 
         services.AddScoped<PojazdService>();
+        services.AddScoped<PojazdZdjeciaService>();
         services.AddScoped<KierowcaService>();
         services.AddScoped<ZlecenieService>();
         services.AddScoped<PrzejazdService>();
         services.AddScoped<KosztService>();
         services.AddScoped<DashboardViewModel>();
+        services.AddScoped(
+         typeof(IRepository<>),
+         typeof(GenericRepository<>));
+      
 
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<MainWindow>();

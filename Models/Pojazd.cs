@@ -43,4 +43,23 @@ public partial class Pojazd
 
     [InverseProperty("IdPojazdNavigation")]
     public virtual ICollection<Przejazd> Przejazds { get; set; } = new List<Przejazd>();
+
+    [InverseProperty("IdPojazdNavigation")]
+    public virtual ICollection<ZdjeciaPojazdu> ZdjeciaPojazdus { get; set; } = new List<ZdjeciaPojazdu>();
+
+    public bool CzyPrzegladWygasa
+    {
+        get
+        {
+            if (DataPrzegladu == null)
+                return false;
+
+            var dataNastepnegoPrzegladu = DataPrzegladu.Value.AddYears(1);
+            var dzis = DateOnly.FromDateTime(DateTime.Now);
+            var za30Dni = dzis.AddDays(30);
+
+            
+            return dataNastepnegoPrzegladu >= dzis && dataNastepnegoPrzegladu <= za30Dni;
+        }
+    }
 }

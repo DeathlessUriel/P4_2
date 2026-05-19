@@ -1,15 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TransportApp.Helpers;
 using TransportApp.Models;
+using TransportApp.Repositories;
 
 namespace TransportApp.Services;
 
 public class PojazdService
 {
+    private readonly IRepository<Pojazd> _repository;
     private readonly IDbContextFactory<AppDbContext> _factory;
 
-    public PojazdService(IDbContextFactory<AppDbContext> factory)
+    public PojazdService(IRepository<Pojazd> repository, 
+        IDbContextFactory<AppDbContext> factory)
     {
+        _repository = repository;
         _factory = factory;
     }
 
@@ -34,11 +38,9 @@ public class PojazdService
     {
         try
         {
-            using var context = await _factory.CreateDbContextAsync();
+            await _repository.AddAsync(pojazd);
 
-            context.Pojazd.Add(pojazd);
-
-            await context.SaveChangesAsync();
+            await _repository.SaveAsync();
 
             return true;
         }
@@ -61,11 +63,9 @@ public class PojazdService
     {
         try
         {
-            using var context = await _factory.CreateDbContextAsync();
+            await _repository.UpdateAsync(pojazd);
 
-            context.Pojazd.Update(pojazd);
-
-            await context.SaveChangesAsync();
+            await _repository.SaveAsync();
 
             return true;
         }
@@ -80,11 +80,9 @@ public class PojazdService
     {
         try
         {
-            using var context = await _factory.CreateDbContextAsync();
+            await _repository.DeleteAsync(pojazd);
 
-            context.Pojazd.Remove(pojazd);
-
-            await context.SaveChangesAsync();
+            await _repository.SaveAsync();
 
             return true;
         }

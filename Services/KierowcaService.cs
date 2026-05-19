@@ -1,16 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TransportApp.Helpers;
 using TransportApp.Models;
+using TransportApp.Repositories;
 
 namespace TransportApp.Services;
 
 public class KierowcaService
 {
+    private readonly IRepository<Kierowca> _repository;
     private readonly IDbContextFactory<AppDbContext> _factory;
 
     public KierowcaService(
+        IRepository<Kierowca> repository,
         IDbContextFactory<AppDbContext> factory)
     {
+        _repository = repository;
         _factory = factory;
     }
 
@@ -37,12 +41,8 @@ public class KierowcaService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Kierowca.Add(kierowca);
-
-            await context.SaveChangesAsync();
+            await _repository.AddAsync(kierowca);
+            await _repository.SaveAsync();
 
             return true;
         }
@@ -58,12 +58,10 @@ public class KierowcaService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
 
-            context.Kierowca.Update(kierowca);
+            await _repository.UpdateAsync(kierowca);
+            await _repository.SaveAsync();
 
-            await context.SaveChangesAsync();
 
             return true;
         }
@@ -79,12 +77,8 @@ public class KierowcaService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Kierowca.Remove(kierowca);
-
-            await context.SaveChangesAsync();
+            await _repository.DeleteAsync(kierowca);
+            await _repository.SaveAsync();
 
             return true;
         }

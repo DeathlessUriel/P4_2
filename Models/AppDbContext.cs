@@ -37,10 +37,12 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Zlecenie> Zlecenie { get; set; }
 
-   
+    public virtual DbSet<ZdjeciaPojazdu> ZdjeciaPojazdu { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        
+
         modelBuilder.Entity<Adresy>(entity =>
         {
             entity.HasKey(e => e.IdAdres).HasName("PK__Adresy__6C3F73B1F1D2E132");
@@ -115,16 +117,19 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<WidokHistoriaKierowcy>(entity =>
         {
+            entity.HasNoKey();
             entity.ToView("Widok_Historia_Kierowcy");
         });
 
         modelBuilder.Entity<WidokKosztPrzejazdu>(entity =>
         {
+            entity.HasNoKey();
             entity.ToView("Widok_Koszt_Przejazdu");
         });
 
         modelBuilder.Entity<WidokKosztZlecenium>(entity =>
         {
+            entity.HasNoKey();
             entity.ToView("Widok_Koszt_Zlecenia");
         });
 
@@ -163,7 +168,16 @@ public partial class AppDbContext : DbContext
                         j.IndexerProperty<int>("IdPrzejazd").HasColumnName("ID_Przejazd");
                     });
         });
+        modelBuilder.Entity<ZdjeciaPojazdu>(entity =>
+        {
+            entity.HasKey(e => e.IdZdjecia).HasName("PK_ZdjeciaPojazdu");
 
+            entity.HasOne(d => d.IdPojazdNavigation)
+                .WithMany(p=>p.ZdjeciaPojazdus)
+                .HasForeignKey(d => d.IdPojazd)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_ZdjeciaPojazdu_Pojazd"); ;
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 

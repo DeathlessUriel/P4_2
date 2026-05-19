@@ -1,16 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TransportApp.Helpers;
 using TransportApp.Models;
-
+using TransportApp.Repositories;
 namespace TransportApp.Services;
 
 public class ZlecenieService
 {
+    private readonly IRepository<Zlecenie> _repository;
     private readonly IDbContextFactory<AppDbContext> _factory;
 
     public ZlecenieService(
+        IRepository<Zlecenie> repository,
         IDbContextFactory<AppDbContext> factory)
     {
+        _repository = repository;
         _factory = factory;
     }
 
@@ -39,12 +42,8 @@ public class ZlecenieService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Zlecenie.Add(zlecenie);
-
-            await context.SaveChangesAsync();
+            await _repository.AddAsync(zlecenie);
+            await _repository.SaveAsync();
 
             return true;
         }
@@ -60,12 +59,8 @@ public class ZlecenieService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Zlecenie.Update(zlecenie);
-
-            await context.SaveChangesAsync();
+            await _repository.UpdateAsync(zlecenie);
+            await _repository.SaveAsync();
 
             return true;
         }
@@ -81,12 +76,8 @@ public class ZlecenieService
     {
         try
         {
-            using var context =
-                await _factory.CreateDbContextAsync();
-
-            context.Zlecenie.Remove(zlecenie);
-
-            await context.SaveChangesAsync();
+            await _repository.DeleteAsync(zlecenie);
+            await _repository.SaveAsync();
 
             return true;
         }

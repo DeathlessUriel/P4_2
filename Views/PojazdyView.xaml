@@ -23,6 +23,7 @@
             <DataGrid ItemsSource="{Binding Pojazdy}"
                       SelectedItem="{Binding SelectedPojazd}"
                       AutoGenerateColumns="False"
+                      RowStyle="{StaticResource PojazdRowStyle}"
                       IsReadOnly="True">
 
                 <DataGrid.Columns>
@@ -77,6 +78,17 @@
                     Margin="5"
                     Command="{Binding DeleteCommand}"/>
 
+            <Button Content="Dodaj zdjęcie"
+            Command="{Binding AddPhotoCommand}"
+            Width="120"
+            Height="40"
+            Margin="5"/>
+
+            <Button Content="Pokaż zdjęcia"
+            Command="{Binding ShowPhotosCommand}"
+            Width="120"
+            Height="40"
+            Margin="5"/>
         </StackPanel>
 
     </Grid>

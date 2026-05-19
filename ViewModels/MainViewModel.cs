@@ -21,16 +21,18 @@ public partial class MainViewModel : ObservableObject
         ZlecenieService zlecenieService,
         PrzejazdService przejazdService,
         KosztService kosztService,
-        DashboardViewModel dashboardViewModel)
+        DashboardViewModel dashboardViewModel,
+        PojazdZdjeciaService pojazdZdjeciaService)
     {
-        PojazdyVM = new PojazdyViewModel(pojazdService);
+        PojazdyVM = new PojazdyViewModel(pojazdService, pojazdZdjeciaService);
         KierowcyVM = new KierowcyViewModel(kierowcaService);
         ZleceniaVM = new ZleceniaViewModel(zlecenieService);
         PrzejazdyVM = new PrzejazdyViewModel(przejazdService);
         KosztyVM = new KosztyViewModel(kosztService);
         DashboardVM = dashboardViewModel;
-
+        
         CurrentView = PojazdyVM;
+
     }
 
     [RelayCommand]

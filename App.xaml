@@ -6,16 +6,37 @@
              xmlns:views="clr-namespace:TransportApp.Views">
 
     <Application.Resources>
+
         <ResourceDictionary>
-           
+
             <ResourceDictionary.MergedDictionaries>
+
                 <materialDesign:BundledTheme BaseTheme="Light"
                                              PrimaryColor="Blue"
                                              SecondaryColor="DeepPurple" />
+
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
-            
+            <Style x:Key="PojazdRowStyle"
+                   TargetType="DataGridRow">
+
+                <Style.Triggers>
+
+                    <DataTrigger Binding="{Binding CzyPrzegladWygasa}"
+                                 Value="True">
+
+                        <Setter Property="Background"
+                                Value="#FFB3B3"/>
+
+                        <Setter Property="ToolTip"
+                                Value="Przegląd kończy się w ciągu 30 dni"/>
+                    </DataTrigger>
+
+                </Style.Triggers>
+            </Style>
+
             <DataTemplate DataType="{x:Type vm:PojazdyViewModel}">
                 <views:PojazdyView/>
             </DataTemplate>
@@ -32,7 +53,7 @@
                 <views:PrzejazdyView/>
             </DataTemplate>
 
-           <DataTemplate DataType="{x:Type vm:KosztyViewModel}">
+            <DataTemplate DataType="{x:Type vm:KosztyViewModel}">
                 <views:KosztyView/>
             </DataTemplate>
 
@@ -41,5 +62,7 @@
             </DataTemplate>
 
         </ResourceDictionary>
+
     </Application.Resources>
+
 </Application>

@@ -5,12 +5,24 @@ using TransportApp.Dialogs;
 using TransportApp.Helpers;
 using TransportApp.Models;
 using TransportApp.Services;
+using TransportApp.Views;
 
 namespace TransportApp.ViewModels;
 
 public partial class PojazdyViewModel : ObservableObject
 {
     private readonly PojazdService _service;
+    private readonly PojazdZdjeciaService _photoService;
+
+    public PojazdyViewModel(
+    PojazdService service,
+    PojazdZdjeciaService photoService)
+    {
+        _service = service;
+        _photoService = photoService;
+
+        _ = LoadData();
+    }
 
     [ObservableProperty]
     private ObservableCollection<Pojazd> pojazdy = new();
@@ -30,6 +42,35 @@ public partial class PojazdyViewModel : ObservableObject
         var data = await _service.GetAllAsync();
 
         Pojazdy = new ObservableCollection<Pojazd>(data);
+    }
+    [RelayCommand]
+    private async Task AddPhoto()
+    {
+        if (SelectedPojazd == null)
+            return;
+
+        await _photoService
+            .DodajZdjecieAsync(
+                SelectedPojazd.IdPojazd);
+    }
+    [RelayCommand]
+    private async Task ShowPhotos()
+    {
+        if (SelectedPojazd == null)
+            return;
+
+        var data =
+            await _photoService
+                .GetZdjeciaAsync(
+                    SelectedPojazd.IdPojazd);
+
+        var vm =
+            new PojazdZdjeciaViewModel(data);
+
+        var window =
+            new PojazdZdjeciaWindow(vm);
+
+        window.ShowDialog();
     }
 
     [RelayCommand]
